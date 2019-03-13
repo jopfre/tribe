@@ -1,5 +1,5 @@
 section {
-    height: 100vh;
+    height: 200vh;
     padding-left: 50%;
     opacity: 0;
    
@@ -20,4 +20,17 @@ section div {
 
 #section-3 {
     margin-bottom: 100vh;
+}
+
+svg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    z-index: -1;
+}
+
+svg path {
+    stroke-dasharray: 180;
 }

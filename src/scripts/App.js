@@ -54,7 +54,7 @@ export default class App {
 			new ScrollMagic.Scene({
 					triggerElement: slides[i]
 				})
-				.setTween(slides[i], 0.5, {autoAlpha:1})
+				.setTween(slides[i], 3, {autoAlpha:1})
 				.setPin(slides[i])
 				.addTo(controller);
 		}
@@ -62,7 +62,7 @@ export default class App {
 			new ScrollMagic.Scene({
 					triggerElement: slides[i+1]
 				})
-				.setTween(slides[i], 0.5, {autoAlpha:0})
+				.setTween(slides[i], 0.3, {autoAlpha:0})
 				.addTo(controller);
 		}
 	}
