@@ -19,7 +19,7 @@ export default class GUIView {
 		this.rangeDepth = [1, 10];
 		this.rangeRadius = [0, 0.5];
 
-		this.initControlKit();
+		// this.initControlKit();
 		// this.initStats();
 
 		// this.disable();

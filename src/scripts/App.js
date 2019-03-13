@@ -1,5 +1,9 @@
 import WebGLView from './webgl/WebGLView';
 import GUIView from './gui/GUIView';
+import TweenMax from "gsap/TweenMax";
+import ScrollMagic from 'scrollmagic';
+import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators';
+import 'imports-loader?define=>false!scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap';
 
 export default class App {
 
@@ -10,6 +14,7 @@ export default class App {
 	init() {
 		this.initWebGL();
 		this.initGUI();
+		this.initScrollMagic();
 		this.addListeners();
 		this.animate();
 		this.resize();
@@ -22,6 +27,44 @@ export default class App {
 
 	initGUI() {
 		this.gui = new GUIView(this);
+	}
+
+	initScrollMagic() {
+		let webgl = this.webgl;
+
+		var controller = new ScrollMagic.Controller({triggerElement: "#trigger",
+			globalSceneOptions: {
+				triggerHook: 'onLeave'
+			}
+		});
+
+		// Change backgrounds
+		new ScrollMagic.Scene({
+			triggerElement: '.trigger'
+		})
+		.on("start", function (e) {
+			webgl.next();
+		})
+		.addTo(controller);
+
+
+		var slides = document.querySelectorAll("section");
+		// fade in out content
+		for (var i=0; i<slides.length; i++) {
+			new ScrollMagic.Scene({
+					triggerElement: slides[i]
+				})
+				.setTween(slides[i], 0.5, {autoAlpha:1})
+				.setPin(slides[i])
+				.addTo(controller);
+		}
+		for (var i=0; i<slides.length; i++) {
+			new ScrollMagic.Scene({
+					triggerElement: slides[i+1]
+				})
+				.setTween(slides[i], 0.5, {autoAlpha:0})
+				.addTo(controller);
+		}
 	}
 
 	addListeners() {
@@ -55,7 +98,6 @@ export default class App {
 		if (this.webgl) this.webgl.draw();
 		if (this.gui.stats) this.gui.stats.end();
 	}
-
 	// ---------------------------------------------------------------------------------------------
 	// EVENT HANDLERS
 	// ---------------------------------------------------------------------------------------------
@@ -70,6 +112,6 @@ export default class App {
 	}
 
 	click(e) {
-		this.webgl.next();
+		// this.webgl.next();
 	}
 }
